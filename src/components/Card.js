@@ -20,8 +20,8 @@ function Card(props) {
   }
 
   return (
-    <ul className="element">
-      <li className="element__item">
+    <li className="element">
+      <div className="element__item">
         <img
           onClick={handleClick}
           src={props.card.link}
@@ -39,9 +39,9 @@ function Card(props) {
         ) : (
           ''
         )}
-      </li>
+      </div>
 
-      <li className="element__item">
+      <div className="element__item">
         <div className="element__body">
           <h2 className="element__title">{props.card.name}</h2>
 
@@ -57,8 +57,8 @@ function Card(props) {
             <p className="element__likes">{props.card.likes.length}</p>
           </div>
         </div>
-      </li>
-    </ul>
+      </div>
+    </li>
   );
 }
 

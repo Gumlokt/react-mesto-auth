@@ -55,43 +55,49 @@ function App() {
   function handleLogin(e) {
     e.preventDefault();
 
-    auth.authorize(credentials).then((data) => {
-      if (!data) {
-        openInformerPopup('Что-то пошло не так!');
-        return;
-      }
+    auth
+      .authorize(credentials)
+      .then((data) => {
+        if (!data) {
+          openInformerPopup('Что-то пошло не так!');
+          return;
+        }
 
-      if (data.message) {
-        openInformerPopup(data.message);
-        return;
-      } else if (data.token) {
-        setCredentials({ email: '', password: '' });
-        handleLoggedIn(true);
-        history.push('/');
-      } else {
-        openInformerPopup('Барабашка взял так и учудил конкретно :-)');
-      }
-    });
+        if (data.message) {
+          openInformerPopup(data.message);
+          return;
+        } else if (data.token) {
+          setCredentials({ email: '', password: '' });
+          handleLoggedIn(true);
+          history.push('/');
+        } else {
+          openInformerPopup('Барабашка взял так и учудил конкретно :-)');
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleRegister(e) {
     e.preventDefault();
 
-    auth.register(credentials).then((data) => {
-      if (!data) {
-        openInformerPopup('Что-то пошло не так!');
-        return;
-      }
+    auth
+      .register(credentials)
+      .then((data) => {
+        if (!data) {
+          openInformerPopup('Что-то пошло не так!');
+          return;
+        }
 
-      if (data.error) {
-        openInformerPopup(data.error);
-        return;
-      } else {
-        openInformerPopup('Регистрация успешна!', true);
-        // history.push('/sing-in');
-        return;
-      }
-    });
+        if (data.error) {
+          openInformerPopup(data.error);
+          return;
+        } else {
+          openInformerPopup('Регистрация успешна!', true);
+          // history.push('/sing-in');
+          return;
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   React.useEffect(() => {
@@ -99,13 +105,16 @@ function App() {
       const token = localStorage.getItem('token');
 
       if (token) {
-        auth.getContent(token).then((res) => {
-          if (res) {
-            setUserEmail(res.data.email);
-            handleLoggedIn(true);
-            history.push('/');
-          }
-        });
+        auth
+          .getContent(token)
+          .then((res) => {
+            if (res) {
+              setUserEmail(res.data.email);
+              handleLoggedIn(true);
+              history.push('/');
+            }
+          })
+          .catch((err) => console.log(err));
       }
     }
 
@@ -113,7 +122,8 @@ function App() {
     // return () => {
     //   setUserEmail('');
     // };
-  });
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div className="App">

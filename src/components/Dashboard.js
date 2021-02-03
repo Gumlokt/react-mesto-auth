@@ -10,7 +10,7 @@ import AddPlacePopup from './AddPlacePopup';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
-import { appApi } from '../utils/Api';
+import { api } from '../utils/api';
 
 function Dashboard(props) {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(
@@ -29,8 +29,8 @@ function Dashboard(props) {
   React.useEffect(() => {
     Promise.all([
       //в Promise.all передаем массив промисов которые нужно выполнить
-      appApi.getUserInfo(),
-      appApi.getInitialCards(),
+      api.getUserInfo(),
+      api.getInitialCards(),
     ])
       .then((values) => {
         //попадаем сюда когда массив промисов будут выполнены
@@ -43,7 +43,7 @@ function Dashboard(props) {
         //попадаем сюда если хотя бы один из промисов завершится ошибкой
         console.log(err.message);
       });
-      // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
   function handleEditAvatarClick() {
@@ -71,24 +71,37 @@ function Dashboard(props) {
   }
 
   function handleUpdateAvatar(newAvatar) {
-    appApi.setAvatar(newAvatar).then((updatedAvatar) => {
-      props.handleUser(updatedAvatar);
-      closeAllPopups();
-    });
+    api
+      .setAvatar(newAvatar)
+      .then((updatedAvatar) => {
+        props.handleUser(updatedAvatar);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log('err');
+        console.log(err);
+      });
   }
 
   function handleUpdateUser(newUserData) {
-    appApi.setUserInfo(newUserData).then((updatedUserData) => {
-      props.handleUser(updatedUserData);
-      closeAllPopups();
-    });
+    api
+      .setUserInfo(newUserData)
+      .then((updatedUserData) => {
+        props.handleUser(updatedUserData);
+        closeAllPopups();
+        // Все закрытия попапов и так изначально находились внутри конструкци: .then((data)=> { ... closeAllPopups(); })
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleAddPlaceSubmi(newCardData) {
-    appApi.addCard(newCardData).then((addedCard) => {
-      setCards([addedCard, ...cards]);
-      closeAllPopups();
-    });
+    api
+      .addCard(newCardData)
+      .then((addedCard) => {
+        setCards([addedCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleCardLike(card) {
@@ -96,22 +109,25 @@ function Dashboard(props) {
     const isLiked = card.likes.some((i) => i._id === props.currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    appApi.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
+    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
       // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
       const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
       // Обновляем стейт
-      setCards(newCards);
+      setCards(newCards).catch((err) => console.log(err));
     });
   }
 
   function handleCardDelete(card) {
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    appApi.deleteCard(card._id).then((newCard) => {
-      // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
-      const newCards = cards.filter((c) => c._id !== card._id);
-      // Обновляем стейт
-      setCards(newCards);
-    });
+    api
+      .deleteCard(card._id)
+      .then((newCard) => {
+        // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
+        const newCards = cards.filter((c) => c._id !== card._id);
+        // Обновляем стейт
+        setCards(newCards);
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -123,7 +139,6 @@ function Dashboard(props) {
       />
 
       <Main
-        // user={props.currentUser}
         cards={cards}
         onCardLike={handleCardLike}
         onCardDelete={handleCardDelete}

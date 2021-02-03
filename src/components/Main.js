@@ -42,16 +42,18 @@ function Main(props) {
         ></button>
       </section>
 
-      <section className="elements">
-        {props.cards.map((item) => (
-          <Card
-            card={item}
-            onCardClick={props.onCardClick}
-            onCardLike={props.onCardLike}
-            onCardDelete={props.onCardDelete}
-            key={item._id}
-          />
-        ))}
+      <section className="gallery">
+        <ul className="elements">
+          {props.cards.map((item) => (
+            <Card
+              card={item}
+              onCardClick={props.onCardClick}
+              onCardLike={props.onCardLike}
+              onCardDelete={props.onCardDelete}
+              key={item._id}
+            />
+          ))}
+        </ul>
       </section>
     </main>
   );

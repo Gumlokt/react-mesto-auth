@@ -4,7 +4,6 @@ class Api {
     this._headers = config.headers;
   }
 
-
   _getResponseData(res, err) {
     if (res.ok) {
       return res.json();
@@ -12,7 +11,6 @@ class Api {
 
     return Promise.reject(new Error(`Ошибка: ${res.status}. ${err}`));
   }
-
 
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
@@ -22,10 +20,9 @@ class Api {
     });
   }
 
-
   addCard(data) {
     return fetch(`${this._url}/cards`, {
-      method: "POST",
+      method: 'POST',
       headers: this._headers,
       body: JSON.stringify(data),
     }).then((res) => {
@@ -33,16 +30,14 @@ class Api {
     });
   }
 
-
   deleteCard(id) {
     return fetch(`${this._url}/cards/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: this._headers,
     }).then((res) => {
       return this._getResponseData(res, 'Карточка не удалена...');
     });
   }
-
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
@@ -52,10 +47,9 @@ class Api {
     });
   }
 
-
   setUserInfo(data) {
     return fetch(`${this._url}/users/me`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(data),
     }).then((res) => {
@@ -63,10 +57,9 @@ class Api {
     });
   }
 
-
   setAvatar(data) {
     return fetch(`${this._url}/users/me/avatar`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(data),
     }).then((res) => {
@@ -74,29 +67,26 @@ class Api {
     });
   }
 
-
   setLike(id) {
     return fetch(`${this._url}/cards/likes/${id}`, {
-      method: "PUT",
+      method: 'PUT',
       headers: this._headers,
     }).then((res) => {
       return this._getResponseData(res, 'Лайк не поставлен...');
     });
   }
 
-
   unsetLike(id) {
     return fetch(`${this._url}/cards/likes/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: this._headers,
     }).then((res) => {
       return this._getResponseData(res, 'Лайк не удалён...');
     });
   }
 
-
   changeLikeCardStatus(id, liked) {
-    if(liked) {
+    if (liked) {
       return this.unsetLike(id);
     }
 
@@ -104,13 +94,11 @@ class Api {
   }
 }
 
-
-
 /** Object with methods to send and request all data on the server side. */
-export const appApi = new Api({
-  url: "https://mesto.nomoreparties.co/v1/cohort-16",
+export const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-16',
   headers: {
-		authorization: '7e8aae9c-bb81-4fe9-ac24-f206bc985678',
-    "Content-Type": "application/json",
+    authorization: '7e8aae9c-bb81-4fe9-ac24-f206bc985678',
+    'Content-Type': 'application/json',
   },
 });
