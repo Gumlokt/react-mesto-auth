@@ -9,11 +9,11 @@
   right: -44px;
   border: 0;
   background-color: transparent;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   transform: rotate(45deg);
-  transition: transform .5s ease;
+  transition: transform 0.5s ease;
 
   background-image: url(../../../images/icons/icon-plus.svg);
   background-size: 40px;
@@ -23,7 +23,7 @@
 
 .popup__btn-close:hover {
   cursor: pointer;
-  opacity: .6;
+  opacity: 0.6;
   transform: rotate(135deg);
 }
 
@@ -31,8 +31,8 @@
   .popup__btn-close {
     width: 42px;
     height: 42px;
-    top: -33px;
-    right: -33px;
+    top: -75px;
+    left: 130px;
     background-size: 30px;
   }
 }

@@ -11,16 +11,16 @@
   font-size: 18px;
   line-height: 22px;
   text-align: center;
-  transition: background-color .4s linear;
+  transition: background-color 0.4s linear;
 }
 
 .form__btn-save:hover {
-  background-color: rgba(0, 0, 0, .8);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 @media screen and (max-width: 620px) {
   .form__btn-save {
-    width: 200px;
+    width: 260px;
     height: 40px;
     font-size: 14px;
     line-height: 17px;
