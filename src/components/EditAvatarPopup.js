@@ -2,19 +2,17 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function EditAvatarPopup(props) {
-  const avaRef = React.useRef(); // записываем объект, возвращаемый хуком, в переменную
+  const [avatarLink, setAvatarLink] = React.useState('');
 
-  function handleChangeAva(e) {
-    avaRef.current.value = e.target.value;
+  function handleChangeAvatar(e) {
+    setAvatarLink(e.target.value);
   }
 
   function handleSubmit(e) {
-    // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
 
-    // Передаём значения управляемых компонентов во внешний обработчик
     props.onUpdateAvatar({
-      avatar: avaRef.current.value,
+      avatar: avatarLink,
     });
   }
 
@@ -29,8 +27,8 @@ function EditAvatarPopup(props) {
         onSubmit={handleSubmit}
       >
         <input
-          onChange={handleChangeAva}
-          ref={avaRef}
+          onChange={handleChangeAvatar}
+          value={avatarLink}
           type="url"
           className="form__text-input"
           name="avatar"

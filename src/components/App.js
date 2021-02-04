@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import * as auth from '../auth.js';
+import * as auth from '../utils/auth.js';
 
 import Header from './Header';
 import Dashboard from './Dashboard';

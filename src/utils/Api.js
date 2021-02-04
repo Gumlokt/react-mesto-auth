@@ -15,9 +15,11 @@ class Api {
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       headers: this._headers,
-    }).then((res) => {
-      return this._getResponseData(res, 'Карточки не получены...');
-    });
+    })
+      .then((res) => {
+        return this._getResponseData(res, 'Карточки не получены...');
+      })
+      .catch((err) => console.log(err));
   }
 
   addCard(data) {
@@ -25,26 +27,32 @@ class Api {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify(data),
-    }).then((res) => {
-      return this._getResponseData(res, 'Новая карточка не добавлена...');
-    });
+    })
+      .then((res) => {
+        return this._getResponseData(res, 'Новая карточка не добавлена...');
+      })
+      .catch((err) => console.log(err));
   }
 
   deleteCard(id) {
     return fetch(`${this._url}/cards/${id}`, {
       method: 'DELETE',
       headers: this._headers,
-    }).then((res) => {
-      return this._getResponseData(res, 'Карточка не удалена...');
-    });
+    })
+      .then((res) => {
+        return this._getResponseData(res, 'Карточка не удалена...');
+      })
+      .catch((err) => console.log(err));
   }
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers,
-    }).then((res) => {
-      return this._getResponseData(res, 'Данные пользователя не получены...');
-    });
+    })
+      .then((res) => {
+        return this._getResponseData(res, 'Данные пользователя не получены...');
+      })
+      .catch((err) => console.log(err));
   }
 
   setUserInfo(data) {
@@ -52,9 +60,14 @@ class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(data),
-    }).then((res) => {
-      return this._getResponseData(res, 'Данные пользователя не обновлены...');
-    });
+    })
+      .then((res) => {
+        return this._getResponseData(
+          res,
+          'Данные пользователя не обновлены...'
+        );
+      })
+      .catch((err) => console.log(err));
   }
 
   setAvatar(data) {
@@ -62,27 +75,33 @@ class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(data),
-    }).then((res) => {
-      return this._getResponseData(res, 'Аватар пользователя не обновлён...');
-    });
+    })
+      .then((res) => {
+        return this._getResponseData(res, 'Аватар пользователя не обновлён...');
+      })
+      .catch((err) => console.log(err));
   }
 
   setLike(id) {
     return fetch(`${this._url}/cards/likes/${id}`, {
       method: 'PUT',
       headers: this._headers,
-    }).then((res) => {
-      return this._getResponseData(res, 'Лайк не поставлен...');
-    });
+    })
+      .then((res) => {
+        return this._getResponseData(res, 'Лайк не поставлен...');
+      })
+      .catch((err) => console.log(err));
   }
 
   unsetLike(id) {
     return fetch(`${this._url}/cards/likes/${id}`, {
       method: 'DELETE',
       headers: this._headers,
-    }).then((res) => {
-      return this._getResponseData(res, 'Лайк не удалён...');
-    });
+    })
+      .then((res) => {
+        return this._getResponseData(res, 'Лайк не удалён...');
+      })
+      .catch((err) => console.log(err));
   }
 
   changeLikeCardStatus(id, liked) {
