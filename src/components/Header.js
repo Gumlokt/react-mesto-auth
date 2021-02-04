@@ -14,7 +14,6 @@ function Header(props) {
   }
 
   function handleMenuBar() {
-    console.log('clicked');
     setDisplayMenuBar(!displayMenuBar);
   }
 
