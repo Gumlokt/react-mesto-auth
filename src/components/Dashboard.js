@@ -10,7 +10,7 @@ import AddPlacePopup from './AddPlacePopup';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
-import { api } from '../utils/appApi';
+import { api } from '../utils/api';
 
 function Dashboard(props) {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
