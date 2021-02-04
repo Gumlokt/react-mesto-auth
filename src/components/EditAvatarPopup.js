@@ -32,7 +32,6 @@ function EditAvatarPopup(props) {
           type="url"
           className="form__text-input"
           name="avatar"
-          defaultValue=""
           placeholder="Ссылка на аватарку"
           id="avatar"
           required

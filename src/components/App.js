@@ -15,7 +15,7 @@ function App() {
   const history = useHistory();
   const [loggedIn, setLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState('');
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({ name: '', about: '' });
   const [isInformerPopupOpen, setInformerPopupOpen] = useState(false);
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [messageToUser, setMessageToUser] = useState('');
